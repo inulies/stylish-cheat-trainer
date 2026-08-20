@@ -33,6 +33,6 @@ O painel do trainer pode ser acessado diretamente pelo menu de scripts do REFram
         /autorun
           StylishCheatTrainer.lua
     ```
-5.  Abra o jogo, aperte `Insert` para abrir o menu do REFramework e procure por **InulieSSS Trainer** na aba *Script Generated UI*.
+5.  Abra o jogo, aperte `Insert` para abrir o menu do REFramework e procure por **Stylish Cheat Trainer** na aba *Script Generated UI*.
 
 ---
