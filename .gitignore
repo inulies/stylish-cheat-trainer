@@ -1,0 +1,5 @@
+old/
+build/*
+.vscode/*
+.idea/*
+.DS_Store
