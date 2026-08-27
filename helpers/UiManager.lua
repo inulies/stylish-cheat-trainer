@@ -60,7 +60,7 @@ function UiManager.Render()
             ConfigState.Save() 
         end
 
-        local changedBalrog, valueBalrog = imgui.checkbox("Infinite Balrog", ConfigState.infiniteBalrog)
+        local changedBalrog, valueBalrog = imgui.checkbox("Balrog Never Extinguish", ConfigState.infiniteBalrog)
         if changedBalrog then 
             ConfigState.infiniteBalrog = valueBalrog 
             ConfigState.Save() 
