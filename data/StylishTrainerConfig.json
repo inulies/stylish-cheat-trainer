@@ -9,6 +9,5 @@
     "infiniteExceed": true,
     "infiniteSdtDante": true,
     "infiniteSdtVergil": true,
-    "instantChargeShot": true,
-    "maxAchievedConcentration": 5.0
+    "instantChargeShot": true
 }
