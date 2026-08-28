@@ -60,7 +60,7 @@ function UiManager.Render()
             ConfigState.Save() 
         end
 
-        local changedBalrog, valueBalrog = imgui.checkbox("Infinite Balrog", ConfigState.infiniteBalrog)
+        local changedBalrog, valueBalrog = imgui.checkbox("Balrog Never Extinguish", ConfigState.infiniteBalrog)
         if changedBalrog then 
             ConfigState.infiniteBalrog = valueBalrog 
             ConfigState.Save() 
@@ -70,7 +70,7 @@ function UiManager.Render()
 
     -- VERGIL
     if imgui.tree_node("Vergil") then
-        local changedConcentration, valueConcentration = imgui.checkbox("Disable Concentration Decrease", ConfigState.infiniteConcentration)
+        local changedConcentration, valueConcentration = imgui.checkbox("Infinite Concentration", ConfigState.infiniteConcentration)
         if changedConcentration then
             ConfigState.infiniteConcentration = valueConcentration
             if valueConcentration then

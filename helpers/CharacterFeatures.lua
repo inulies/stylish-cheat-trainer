@@ -1,7 +1,7 @@
 local HookManager = require("helpers/HookManager")
 
 local CharacterFeatures = {}
-local achievedConcentration = 2.0
+local achievedConcentration = 4.0
 
 -- Global: aumento contínuo de Devil Trigger (DT) a cada frame, até o máximo permitido
 -- Global: continuous increase of Devil Trigger (DT) each frame, up to the maximum allowed
