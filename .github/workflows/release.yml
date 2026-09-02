@@ -2,6 +2,11 @@ name: Build Release
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. v1.0.0)"
+        required: true
+        type: string
 
   push:
     tags:
@@ -17,13 +22,41 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get version
         id: version
-        run: echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Building version: ${VERSION}"
+
+      - name: Validate files
+        shell: bash
+        run: |
+          test -f data/StylishTrainerConfig.json || {
+            echo "ERROR: data/StylishTrainerConfig.json not found"
+            exit 1
+          }
+
+          test -f StylishCheatTrainer.lua || {
+            echo "ERROR: StylishCheatTrainer.lua not found"
+            exit 1
+          }
+
+          test -d helpers || {
+            echo "ERROR: helpers directory not found"
+            exit 1
+          }
 
       - name: Prepare package
+        shell: bash
         run: |
           mkdir -p build/reframework/data
           mkdir -p build/reframework/autorun/helpers
@@ -37,6 +70,11 @@ jobs:
           cp -r helpers/* \
              build/reframework/autorun/helpers/
 
+      - name: Show package structure
+        run: |
+          echo "Package contents:"
+          find build/reframework -type f
+
       - name: Create ZIP
         run: |
           cd build
@@ -45,5 +83,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Stylish Cheat Trainer ${{ steps.version.outputs.version }}
           generate_release_notes: true
           files: StylishCheatTrainer-${{ steps.version.outputs.version }}.zip
