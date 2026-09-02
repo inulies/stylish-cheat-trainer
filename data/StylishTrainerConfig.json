@@ -1,0 +1,13 @@
+{
+    "Load": null,
+    "Save": null,
+    "godMode": false,
+    "infiniteBalrog": false,
+    "infiniteColorUp": false,
+    "infiniteConcentration": false,
+    "infiniteDt": true,
+    "infiniteExceed": false,
+    "infiniteSdtDante": false,
+    "infiniteSdtVergil": false,
+    "instantChargeShot": true
+}

@@ -1,0 +1,47 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare package
+        run: |
+          mkdir -p build/reframework/data
+          mkdir -p build/reframework/autorun/helpers
+
+          cp data/StylishTrainerConfig.json \
+             build/reframework/data/
+
+          cp StylishCheatTrainer.lua \
+             build/reframework/autorun/
+
+          cp -r helpers/* \
+             build/reframework/autorun/helpers/
+
+      - name: Create ZIP
+        run: |
+          cd build
+          zip -r "../StylishCheatTrainer-${{ steps.version.outputs.version }}.zip" reframework/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: StylishCheatTrainer-${{ steps.version.outputs.version }}.zip
